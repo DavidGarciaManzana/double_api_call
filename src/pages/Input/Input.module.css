@@ -1,0 +1,8 @@
+.input{
+    margin: 1rem;
+    border-radius: 6px;
+    height: 48px;
+    display: flex;
+    text-align: center;
+    font-size: 18px;
+}
