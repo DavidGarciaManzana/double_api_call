@@ -7,6 +7,7 @@ import Input from "@/pages/Input/Input";
 import {X} from "react-feather";
 import axios from 'axios';
 import Loader from '@/pages/Loader/Loader'
+import Modal from '@/pages/Modal/Modal'
 
 
 const TEXTENDPOINT = 'https://api.openai.com/v1/chat/completions';
@@ -15,19 +16,21 @@ const IMAGEENDPOINT = 'https://api.openai.com/v1/images/edits';
 export interface IngredientInterface {
     id: string;
     text: string;
-    quantity?: string;
+    quantity: string;
 
 }
 
 export default function Home() {
     type StatusType = 'idle' | 'loading' | 'success' | 'error'
-    const [ingredient, setIngredient] = React.useState<string>('')
+    const [ingredientName, setIngredientName] = React.useState<string>('')
+    const [ingredientQuantity, setIngredientQuantity] = React.useState<string>('')
     const [foodIngredients, setFoodIngredients] = React.useState<IngredientInterface[]>([])
     const [ingredientButton, setIngredientButton] = React.useState('Añadir ingrediente')
     const [incompleteIngredient, setIncompleteIngredient] = React.useState({})
     const [status, setStatus] = React.useState<StatusType>('idle');
     const [textApiAnswer, setTextApiAnswer] = React.useState<string[]>([])
     const [imageApiAnswer, setImageApiAnswer] = React.useState<string[]>([])
+    const [isModalOpen, toggleIsModalOpen] = React.useState<boolean>(false);
 
     let nextIngredient: IngredientInterface;
     let nextCompleteIngredient: IngredientInterface;
@@ -126,9 +129,15 @@ export default function Home() {
         }
 
     }
-    // function addBothIngredientQuantityToTheIngredientsObject(){
-    //
-    // }
+
+    function addIngredient() {
+        let newIngredient = {id: crypto.randomUUID(), text: ingredientName, quantity: ingredientQuantity}
+        setFoodIngredients([...foodIngredients, newIngredient])
+        setIngredientName('')
+        setIngredientQuantity('')
+        toggleIsModalOpen(false)
+        console.log('añadiste ingrediente')
+    }
 
     return (
         <div className={styles.parent}>
@@ -138,53 +147,55 @@ export default function Home() {
 
 
 
-            <form action="" className={styles.container} onSubmit={(event) => {
-                event.preventDefault()
-                if (ingredient === '') {
-                    return;
-                }
-                if (ingredientButton === 'Añadir ingrediente') {
-                    nextIngredient = {id: crypto.randomUUID(), text: ingredient}
-                    setIncompleteIngredient(nextIngredient)
-                    setIngredientButton('Añadir cantidad')
-                } else {
-                    nextCompleteIngredient = {...incompleteIngredient as IngredientInterface, quantity: ingredient}
-                    setFoodIngredients([...foodIngredients, nextCompleteIngredient])
-                    setIngredientButton('Añadir ingrediente')
-                }
-                setIngredient('')
+            {status === 'idle' &&
+                (
+                    <>
 
-
+                        <AddIngredientButton type={"submit"} onClick={() => {
+                            toggleIsModalOpen(true)
+                        }}>Modal</AddIngredientButton>
+                    </>
+                )
             }
-            }>
+            {isModalOpen && <Modal title="Add Ingredient Modal" handleDismiss={() => {
+                toggleIsModalOpen(false)
+            }}>
+                <form className={styles.form} onSubmit={(e) => {
+                    e.preventDefault()
+                    addIngredient();
+                }}>
+                    <Input ingredient={ingredientQuantity} setIngredient={setIngredientQuantity} maxLength={20}
+                           required={true} placeholder={'Quantity'}></Input>
+                    <Input ingredient={ingredientName} setIngredient={setIngredientName} maxLength={20}
+                           required={true} placeholder={'Name'}></Input>
 
-                {status === 'idle' &&
-                    <Input ingredient={ingredient} setIngredient={setIngredient} maxLength={20}></Input>}
-                {status === 'idle' && <AddIngredientButton type={"submit"}>{ingredientButton}</AddIngredientButton>}
-                {status === 'success' && <ResetButton onClick={hardReset}>Reiniciar</ResetButton>}
-                {status === 'success' && <AddIngredientButton onClick={() => {
-                    setStatus('idle')
-                }}>Añadir ingredientes</AddIngredientButton>}
-                {status !== 'loading' && <div className={styles.listContainer}>
-                    <ul className={styles.list}>
-                        {foodIngredients.map((ingr: IngredientInterface) => (
-                            <li className={styles.listItem} key={ingr.id}>{ingr.quantity} {ingr.text} <X
-                                className={styles.closeButton} onClick={() => {
-                                removeItem(ingr.id)
-                                setStatus('success');
-                            }}/></li>
-                        ))}
-                    </ul>
-                </div>}
+                    <AddIngredientButton type={"submit"}>Añadir ingrediente</AddIngredientButton>
+                </form>
+            </Modal>}
+
+            {status === 'success' && <ResetButton onClick={hardReset}>Reiniciar</ResetButton>}
+            {status === 'success' && <AddIngredientButton onClick={() => {
+                setStatus('idle')
+            }}>Añadir ingredientes</AddIngredientButton>}
+            {status !== 'loading' && <div className={styles.listContainer}>
+                <ul className={styles.list}>
+                    {foodIngredients.map((ingr: IngredientInterface) => (
+                        <li className={styles.listItem} key={ingr.id}>{ingr.quantity} {ingr.text} <X
+                            className={styles.closeButton} onClick={() => {
+                            removeItem(ingr.id)
+                            setStatus('success');
+                        }}/></li>
+                    ))}
+                </ul>
+            </div>}
 
 
-                {/*<Pruebas></Pruebas>*/}
-                {/*<button onClick={() => {*/}
-                {/*    console.log(imageApiAnswer)*/}
-                {/*}}>Boton para imprimir el array de imagenes*/}
-                {/*</button>*/}
-
-            </form>
+            {/*<Pruebas></Pruebas>*/}
+            {/*<button onClick={() => {*/}
+            {/*    console.log(imageApiAnswer)*/}
+            {/*}}>Boton para imprimir el array de imagenes*/}
+            {/*</button>*/}
+            
             {status === 'success' && <section className={styles.section}>
                 <div className={styles.container}>
                     <div className={styles.grid}>
