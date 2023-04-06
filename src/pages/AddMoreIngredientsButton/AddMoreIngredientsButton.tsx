@@ -1,7 +1,5 @@
 import React from "react";
 import Button from "@/pages/Button/Button";
-import {inspect} from "util";
-
 import styles from "@/pages/ResetButton/ResetButton.module.css";
 
 

@@ -1,13 +1,13 @@
-let resultado = '1. Guacamole:blablabla\n' +
-    '2. Ensalada de tomate y cebolla:blablabla\n' +
-    '3. Salsa de tomate y cebolla para tacos o fajitas:blablabla.'
-console.log(resultado)
-
-var separateLines = resultado.split(/\r?\n|\r|\n/g);
+// let resultado = '1. Guacamole:blablabla\n' +
+//     '2. Ensalada de tomate y cebolla:blablabla\n' +
+//     '3. Salsa de tomate y cebolla para tacos o fajitas:blablabla.'
 // console.log(resultado)
-console.log(separateLines)
-separateLines[0].pop()
-console.log(separateLines)
+//
+// var separateLines = resultado.split(/\r?\n|\r|\n/g);
+// // console.log(resultado)
+// console.log(separateLines)
+// separateLines[0].pop()
+// console.log(separateLines)
 // console.log(separateLines[0])
 //
 // var parteInicial = separateLines[0].split(':',1);
@@ -20,3 +20,8 @@ console.log(separateLines)
 
 // const plateWithoutFood = new File(['PLATOSINCOMIDA.png'], 'image.png', {type: 'image/png'});
 // console.log(plateWithoutFood)
+
+
+
+
+
