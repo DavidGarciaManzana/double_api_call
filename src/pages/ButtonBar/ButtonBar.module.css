@@ -1,0 +1,26 @@
+.wrapper{
+    position: fixed;
+    display: flex;
+    height: 100px;
+    width: 100%;
+    background-color: #e7c878;
+    align-items: center;
+    bottom: 0;
+}
+.barNormalButton {
+    height: 100%;
+    flex-basis: 0;
+    flex-grow: 1;
+    background-image: none;
+    background-color: #e7c878;
+}
+.barCentralButton {
+    height: 50px;
+    background-color: #cc914b;
+    clip-path: polygon(7% 0, 93% 0, 100% 50%, 93% 100%, 7% 100%, 0 50%);
+
+
+}
+
+
+

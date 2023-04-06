@@ -8,6 +8,7 @@ import {X} from "react-feather";
 import axios from 'axios';
 import Loader from '@/pages/Loader/Loader'
 import Modal from '@/pages/Modal/Modal'
+import ButtonBar from "@/pages/ButtonBar/ButtonBar";
 
 
 const TEXTENDPOINT = 'https://api.openai.com/v1/chat/completions';
@@ -25,15 +26,11 @@ export default function Home() {
     const [ingredientName, setIngredientName] = React.useState<string>('')
     const [ingredientQuantity, setIngredientQuantity] = React.useState<string>('')
     const [foodIngredients, setFoodIngredients] = React.useState<IngredientInterface[]>([])
-    const [ingredientButton, setIngredientButton] = React.useState('Añadir ingrediente')
-    const [incompleteIngredient, setIncompleteIngredient] = React.useState({})
     const [status, setStatus] = React.useState<StatusType>('idle');
     const [textApiAnswer, setTextApiAnswer] = React.useState<string[]>([])
     const [imageApiAnswer, setImageApiAnswer] = React.useState<string[]>([])
     const [isModalOpen, toggleIsModalOpen] = React.useState<boolean>(false);
 
-    let nextIngredient: IngredientInterface;
-    let nextCompleteIngredient: IngredientInterface;
     let testJson;
 
     function plainIngredients() {
@@ -110,16 +107,16 @@ export default function Home() {
                 arrayJson = testJson.choices[0].message.content.split(/\n/)
                 setTextApiAnswer(arrayJson)
             }
-
+            console.log(arrayJson)
 
             if (arrayJson.length === 3) {
-                const promesas = await Promise.all([
-                    handleImageAPI(arrayJson[0].substring(arrayJson[0].indexOf(' ') + 1, arrayJson[0].indexOf(':'))),
-                    handleImageAPI(arrayJson[1].substring(arrayJson[1].indexOf(' ') + 1, arrayJson[1].indexOf(':'))),
-                    handleImageAPI(arrayJson[2].substring(arrayJson[2].indexOf(' ') + 1, arrayJson[2].indexOf(':'))),
-                ])
-
-                setImageApiAnswer(promesas)
+                // const promesas = await Promise.all([
+                //     handleImageAPI(arrayJson[0].substring(arrayJson[0].indexOf(' ') + 1, arrayJson[0].indexOf(':'))),
+                //     handleImageAPI(arrayJson[1].substring(arrayJson[1].indexOf(' ') + 1, arrayJson[1].indexOf(':'))),
+                //     handleImageAPI(arrayJson[2].substring(arrayJson[2].indexOf(' ') + 1, arrayJson[2].indexOf(':'))),
+                // ])
+                //
+                // setImageApiAnswer(promesas)
                 setStatus('success');
             } else {
                 window.alert("Chat gpt tuvo problemas al proporcionar los platillos (mando un array de mas de 3 elementos)")
@@ -136,27 +133,16 @@ export default function Home() {
         setIngredientName('')
         setIngredientQuantity('')
         toggleIsModalOpen(false)
-        console.log('añadiste ingrediente')
     }
 
     return (
         <div className={styles.parent}>
+            <ButtonBar B1={'Reset'} B2={'Enviar'} B3={'Añadir'}
+                       B3Click={() => {toggleIsModalOpen(true)}}></ButtonBar>
             {status === 'loading' && <Loader></Loader>}
             {foodIngredients.length > 2 && status === 'idle' &&
                 <CallAPIButton onClick={handleTextAPI}>Enviar</CallAPIButton>}
-
-
-
-            {status === 'idle' &&
-                (
-                    <>
-
-                        <AddIngredientButton type={"submit"} onClick={() => {
-                            toggleIsModalOpen(true)
-                        }}>Modal</AddIngredientButton>
-                    </>
-                )
-            }
+            
             {isModalOpen && <Modal title="Add Ingredient Modal" handleDismiss={() => {
                 toggleIsModalOpen(false)
             }}>
@@ -195,13 +181,13 @@ export default function Home() {
             {/*    console.log(imageApiAnswer)*/}
             {/*}}>Boton para imprimir el array de imagenes*/}
             {/*</button>*/}
-            
+
             {status === 'success' && <section className={styles.section}>
                 <div className={styles.container}>
                     <div className={styles.grid}>
                         <article className={styles.card}>
                             <img className={styles.card__image} src={imageApiAnswer[0]}
-                                 alt={'Imagen de un platillo de comida'}/>
+                                 alt='Imagen de un platillo de comida'/>
                             <div className={styles.card__data}>
                                 <div className={styles.card__info}>
                                     {/*<h2>{textApiAnswer[0].split(':', 1)}</h2>*/}
@@ -214,7 +200,7 @@ export default function Home() {
                         </article>
                         <article className={styles.card}>
                             <img className={styles.card__image} src={imageApiAnswer[1]}
-                                 alt={'Imagen de un platillo de comida'}/>
+                                 alt='Imagen de un platillo de comida'/>
                             <div className={styles.card__data}>
                                 <div className={styles.card__info}>
                                     <h2>{textApiAnswer[1].substring(textApiAnswer[1].indexOf(' ') + 1, textApiAnswer[1].indexOf(':'))}</h2>
@@ -224,7 +210,7 @@ export default function Home() {
                         </article>
                         <article className={styles.card}>
                             <img className={styles.card__image} src={imageApiAnswer[2]}
-                                 alt={'Imagen de un platillo de comida'}/>
+                                 alt='Imagen de un platillo de comida'/>
                             <div className={styles.card__data}>
                                 <div className={styles.card__info}>
                                     <h2>{textApiAnswer[2].substring(textApiAnswer[2].indexOf(' ') + 1, textApiAnswer[2].indexOf(':'))}</h2>
