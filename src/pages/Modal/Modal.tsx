@@ -6,7 +6,6 @@ import {RemoveScroll} from 'react-remove-scroll';
 
 
 export default function Modal({title = 'Modal Title', handleDismiss, children}) {
-    console.log('renderiza modal')
     React.useEffect(() => {
         function handleKeyDown(event:any) { //todo remove any
             if (event.code === 'Escape') {

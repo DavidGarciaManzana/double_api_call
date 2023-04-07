@@ -1,14 +1,15 @@
 import React from "react";
 import styles from '@/styles/Home.module.css'
 import AddIngredientButton from "@/pages/AddIngredientButton/AddIngredientButton";
-import CallAPIButton from "@/pages/CallAPIButton/CallAPIButton";
-import ResetButton from "@/pages/ResetButton/ResetButton";
 import Input from "@/pages/Input/Input";
-import {X} from "react-feather";
 import axios from 'axios';
 import Loader from '@/pages/Loader/Loader'
 import Modal from '@/pages/Modal/Modal'
 import ButtonBar from "@/pages/ButtonBar/ButtonBar";
+import useToggle from "@/hooks/useToggle";
+import TopBar from "@/pages/TopBar/TopBar";
+import Hero from "@/pages/Hero/Hero"
+import IngredientList from "@/pages/IngredientList/IngredientList";
 
 
 const TEXTENDPOINT = 'https://api.openai.com/v1/chat/completions';
@@ -29,7 +30,7 @@ export default function Home() {
     const [status, setStatus] = React.useState<StatusType>('idle');
     const [textApiAnswer, setTextApiAnswer] = React.useState<string[]>([])
     const [imageApiAnswer, setImageApiAnswer] = React.useState<string[]>([])
-    const [isModalOpen, toggleIsModalOpen] = React.useState<boolean>(false);
+    const [isModalOpen, toggleIsModalOpen] = useToggle();
 
     let testJson;
 
@@ -132,20 +133,29 @@ export default function Home() {
         setFoodIngredients([...foodIngredients, newIngredient])
         setIngredientName('')
         setIngredientQuantity('')
-        toggleIsModalOpen(false)
+        if (typeof toggleIsModalOpen === 'function') {
+            toggleIsModalOpen()
+        }
+
     }
 
     return (
         <div className={styles.parent}>
-            <ButtonBar B1={'Reset'} B2={'Enviar'} B3={'Añadir'}
-                       B3Click={() => {toggleIsModalOpen(true)}}></ButtonBar>
+            {/*Web structure*/}
+            <TopBar/>
+            <div className={styles.heroPlusList}>
+                <Hero foodIngredients={foodIngredients}/>
+                {status !== 'loading' &&
+                    <IngredientList foodIngredients={foodIngredients} removeItem={removeItem}/>}
+
+            </div>
+            <ButtonBar status={status} foodIngredients={foodIngredients} B1={'Reset'} B2={'Enviar'} B3={'Añadir'}
+                       B1Click={hardReset}
+                       B2Click={handleTextAPI}
+                       B3Click={toggleIsModalOpen}/>
+            {/*Temporal elements*/}
             {status === 'loading' && <Loader></Loader>}
-            {foodIngredients.length > 2 && status === 'idle' &&
-                <CallAPIButton onClick={handleTextAPI}>Enviar</CallAPIButton>}
-            
-            {isModalOpen && <Modal title="Add Ingredient Modal" handleDismiss={() => {
-                toggleIsModalOpen(false)
-            }}>
+            {isModalOpen && <Modal title="Add Ingredient Modal" handleDismiss={toggleIsModalOpen}>
                 <form className={styles.form} onSubmit={(e) => {
                     e.preventDefault()
                     addIngredient();
@@ -158,69 +168,48 @@ export default function Home() {
                     <AddIngredientButton type={"submit"}>Añadir ingrediente</AddIngredientButton>
                 </form>
             </Modal>}
-
-            {status === 'success' && <ResetButton onClick={hardReset}>Reiniciar</ResetButton>}
-            {status === 'success' && <AddIngredientButton onClick={() => {
-                setStatus('idle')
-            }}>Añadir ingredientes</AddIngredientButton>}
-            {status !== 'loading' && <div className={styles.listContainer}>
-                <ul className={styles.list}>
-                    {foodIngredients.map((ingr: IngredientInterface) => (
-                        <li className={styles.listItem} key={ingr.id}>{ingr.quantity} {ingr.text} <X
-                            className={styles.closeButton} onClick={() => {
-                            removeItem(ingr.id)
-                            setStatus('success');
-                        }}/></li>
-                    ))}
-                </ul>
-            </div>}
+            {/*THE API'S RESPONSE*/}
 
 
-            {/*<Pruebas></Pruebas>*/}
-            {/*<button onClick={() => {*/}
-            {/*    console.log(imageApiAnswer)*/}
-            {/*}}>Boton para imprimir el array de imagenes*/}
-            {/*</button>*/}
-
-            {status === 'success' && <section className={styles.section}>
-                <div className={styles.container}>
-                    <div className={styles.grid}>
-                        <article className={styles.card}>
-                            <img className={styles.card__image} src={imageApiAnswer[0]}
-                                 alt='Imagen de un platillo de comida'/>
-                            <div className={styles.card__data}>
-                                <div className={styles.card__info}>
-                                    {/*<h2>{textApiAnswer[0].split(':', 1)}</h2>*/}
-                                    <h2>{textApiAnswer[0].substring(textApiAnswer[0].indexOf(' ') + 1, textApiAnswer[0].indexOf(':'))}</h2>
-                                    <p>{textApiAnswer[0].substring(textApiAnswer[0].indexOf(':') + 1)}</p>
-                                </div>
-                                {/*<h3 className={styles.card__price}>$7.50</h3>*/}
-                                {/*<button className={styles.card__add}>+</button>*/}
-                            </div>
-                        </article>
-                        <article className={styles.card}>
-                            <img className={styles.card__image} src={imageApiAnswer[1]}
-                                 alt='Imagen de un platillo de comida'/>
-                            <div className={styles.card__data}>
-                                <div className={styles.card__info}>
-                                    <h2>{textApiAnswer[1].substring(textApiAnswer[1].indexOf(' ') + 1, textApiAnswer[1].indexOf(':'))}</h2>
-                                    <p>{textApiAnswer[1].substring(textApiAnswer[1].indexOf(':') + 1)}</p>
-                                </div>
-                            </div>
-                        </article>
-                        <article className={styles.card}>
-                            <img className={styles.card__image} src={imageApiAnswer[2]}
-                                 alt='Imagen de un platillo de comida'/>
-                            <div className={styles.card__data}>
-                                <div className={styles.card__info}>
-                                    <h2>{textApiAnswer[2].substring(textApiAnswer[2].indexOf(' ') + 1, textApiAnswer[2].indexOf(':'))}</h2>
-                                    <p>{textApiAnswer[2].substring(textApiAnswer[2].indexOf(':') + 1)}</p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </section>}
+            {/*{status === 'success' && <section className={styles.section}>*/}
+            {/*    <div className={styles.container}>*/}
+            {/*        <div className={styles.grid}>*/}
+            {/*            <article className={styles.card}>*/}
+            {/*                <img className={styles.card__image} src={imageApiAnswer[0]}*/}
+            {/*                     alt='Imagen de un platillo de comida'/>*/}
+            {/*                <div className={styles.card__data}>*/}
+            {/*                    <div className={styles.card__info}>*/}
+            {/*                        /!*<h2>{textApiAnswer[0].split(':', 1)}</h2>*!/*/}
+            {/*                        <h2>{textApiAnswer[0].substring(textApiAnswer[0].indexOf(' ') + 1, textApiAnswer[0].indexOf(':'))}</h2>*/}
+            {/*                        <p>{textApiAnswer[0].substring(textApiAnswer[0].indexOf(':') + 1)}</p>*/}
+            {/*                    </div>*/}
+            {/*                    /!*<h3 className={styles.card__price}>$7.50</h3>*!/*/}
+            {/*                    /!*<button className={styles.card__add}>+</button>*!/*/}
+            {/*                </div>*/}
+            {/*            </article>*/}
+            {/*            <article className={styles.card}>*/}
+            {/*                <img className={styles.card__image} src={imageApiAnswer[1]}*/}
+            {/*                     alt='Imagen de un platillo de comida'/>*/}
+            {/*                <div className={styles.card__data}>*/}
+            {/*                    <div className={styles.card__info}>*/}
+            {/*                        <h2>{textApiAnswer[1].substring(textApiAnswer[1].indexOf(' ') + 1, textApiAnswer[1].indexOf(':'))}</h2>*/}
+            {/*                        <p>{textApiAnswer[1].substring(textApiAnswer[1].indexOf(':') + 1)}</p>*/}
+            {/*                    </div>*/}
+            {/*                </div>*/}
+            {/*            </article>*/}
+            {/*            <article className={styles.card}>*/}
+            {/*                <img className={styles.card__image} src={imageApiAnswer[2]}*/}
+            {/*                     alt='Imagen de un platillo de comida'/>*/}
+            {/*                <div className={styles.card__data}>*/}
+            {/*                    <div className={styles.card__info}>*/}
+            {/*                        <h2>{textApiAnswer[2].substring(textApiAnswer[2].indexOf(' ') + 1, textApiAnswer[2].indexOf(':'))}</h2>*/}
+            {/*                        <p>{textApiAnswer[2].substring(textApiAnswer[2].indexOf(':') + 1)}</p>*/}
+            {/*                    </div>*/}
+            {/*                </div>*/}
+            {/*            </article>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</section>}*/}
         </div>
     )
 }

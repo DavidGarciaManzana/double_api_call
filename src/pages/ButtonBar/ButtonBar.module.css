@@ -1,11 +1,11 @@
 .wrapper{
-    position: fixed;
+    /*position: fixed;*/
     display: flex;
     height: 100px;
     width: 100%;
     background-color: #e7c878;
     align-items: center;
-    bottom: 0;
+    /*bottom: 0;*/
 }
 .barNormalButton {
     height: 100%;
@@ -14,12 +14,15 @@
     background-image: none;
     background-color: #e7c878;
 }
-.barCentralButton {
+.barActiveCentralButton {
     height: 50px;
     background-color: #cc914b;
     clip-path: polygon(7% 0, 93% 0, 100% 50%, 93% 100%, 7% 100%, 0 50%);
-
-
+}
+.barInactiveCentralButton {
+    height: 50px;
+    background-color: grey;
+    clip-path: polygon(7% 0, 93% 0, 100% 50%, 93% 100%, 7% 100%, 0 50%);
 }
 
 
