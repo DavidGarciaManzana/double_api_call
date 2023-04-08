@@ -5,6 +5,11 @@
     height: 50%;
     width: 100%;
 }
+@media (min-width: 425px) {
+    .hero{
+        width: 350px;
+    }
+}
 .world{
     width: 100%;
 }

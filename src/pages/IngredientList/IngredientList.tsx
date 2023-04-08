@@ -1,10 +1,12 @@
 import React from "react";
 import styles from '@/pages/IngredientList/IngredientList.module.css';
-import {IngredientInterface} from "@/pages";
+import {IngredientInterface} from "@/pages/IngredientsProvider/IngredientsProvider";
 import {X} from "react-feather";
+import {IngredientsContext} from "@/pages/IngredientsProvider/IngredientsProvider";
 
 
-export default function IngredientList({foodIngredients, removeItem}) {
+export default function IngredientList() {
+    const {foodIngredients, removeItem} = React.useContext(IngredientsContext)
     return (
         <div className={styles.listContainer}>
             <ul className={styles.list}>

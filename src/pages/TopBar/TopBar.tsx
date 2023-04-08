@@ -1,18 +1,18 @@
 import React from "react";
 import styles from '@/pages/TopBar/TopBar.module.css';
 import Button from "@/pages/Button/Button";
-import {Menu, UserPlus} from "react-feather";
+import {Smile, Twitter} from "react-feather";
 
 
 export default function TopBar() {
     return (
         <div className={styles.topBar}>
         <Button className={styles.hamburgerButton}>
-            <Menu></Menu>
+            <Smile></Smile>
         </Button>
             <h1>Algo Rico</h1>
         <Button className={styles.userPlusButton}>
-            <UserPlus></UserPlus>
+            <a href='https://twitter.com/DavidGarciaMa1' target="_blank"><Twitter></Twitter></a>
         </Button>
         </div>
     );

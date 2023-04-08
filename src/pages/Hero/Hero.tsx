@@ -1,9 +1,12 @@
 import React from "react";
 import styles from '@/pages/Hero/Hero.module.css';
+import {IngredientsContext} from "@/pages/IngredientsProvider/IngredientsProvider";
 
 
 
-export default function Hero({foodIngredients}) {
+
+export default function Hero() {
+    const {foodIngredients} = React.useContext(IngredientsContext)
     console.log('RENDERIZA HERO')
     let fridge = 'FRIDGE1.png' ;
     if (foodIngredients.length>2){

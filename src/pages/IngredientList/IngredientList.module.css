@@ -6,16 +6,30 @@
     display: grid;
     /*place-items: center;*/
     /*height: 50%;*/
-    margin-top: 100px;
+    /*margin-top: 100px;*/
 }
-
+@media only screen and (min-width: 350px) {
+    .listContainer {
+        margin-top: 35px;
+    }
+}
+@media only screen and (min-width: 390px) {
+    .listContainer {
+        margin-top: 80px;
+    }
+}
+@media only screen and (min-width: 425px) {
+    .listContainer {
+        margin-top: 5px;
+    }
+}
 
 .list {
     list-style-position: inside;
-    /*box-shadow: 0.25rem 0.25rem 0.
     min-width: 230px;
     max-width: 100%;
-    /*background: white;*/75rem rgb(0 0 0 / 0.15);*/
+    /*background: white;*/
+    /*box-shadow: 0.25rem 0.25rem 0.75rem rgb(0 0 0 / 0.15);*/
     padding: 0;
     margin: 0;
     border-radius: 0.1rem;
