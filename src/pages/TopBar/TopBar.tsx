@@ -10,7 +10,7 @@ export default function TopBar() {
         <Button className={styles.hamburgerButton}>
             <Smile></Smile>
         </Button>
-            <h1>Algo Rico</h1>
+            <h1>RefriChef</h1>
         <Button className={styles.userPlusButton}>
             <a href='https://twitter.com/DavidGarciaMa1' target="_blank"><Twitter></Twitter></a>
         </Button>
