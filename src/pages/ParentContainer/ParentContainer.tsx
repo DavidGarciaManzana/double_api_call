@@ -7,10 +7,11 @@ interface ParentContainerProps  {
 
 }
 
-export default function ParentContainer({className = '',children} : ParentContainerProps) {
+function ParentContainer({className = '',children} : ParentContainerProps,ref:any) {
     return (
-        <div className={className ? className: styles.parent}>
+        <div className={className ? className: styles.parent } ref={ref}>
             {children}
         </div>
     );
 }
+export default React.forwardRef(ParentContainer)

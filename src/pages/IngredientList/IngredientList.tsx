@@ -5,10 +5,10 @@ import {X} from "react-feather";
 import {IngredientsContext} from "@/pages/IngredientsProvider/IngredientsProvider";
 
 
-export default function IngredientList() {
+function IngredientList() {
     const {foodIngredients, removeItem} = React.useContext(IngredientsContext)
     return (
-        <div className={styles.listContainer}>
+        <div className={styles.listContainer} >
             <ul className={styles.list}>
                 {foodIngredients?.map((ingr: IngredientInterface) => (
                     <li className={styles.listItem} key={ingr.id}>{ingr.quantity} {ingr.text} <X
@@ -20,3 +20,4 @@ export default function IngredientList() {
         </div>
     );
 }
+export default IngredientList

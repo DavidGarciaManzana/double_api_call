@@ -6,7 +6,6 @@ import styles from '@/pages/Toast/Toast.module.css'
 
 const ToastDemo = ({children}: { children: ReactNode }) => {
     const [open, setOpen] = React.useState(false);
-    const eventDateRef = React.useRef(new Date());
     const timerRef = React.useRef(0);
 
     React.useEffect(() => {

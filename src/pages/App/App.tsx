@@ -14,6 +14,8 @@ import {StatusContext} from "@/pages/StatusProvider/StatusProvider";
 import useValidation from "@/hooks/useValidation";
 import {Twitter} from "react-feather";
 import Toast from "@/pages/Toast/Toast";
+import {ArrowDown} from "react-feather";
+import {stat} from "fs";
 
 
 interface AppProps {
@@ -24,6 +26,7 @@ export default function App({ip}: AppProps) {
     const {status, setStatus} = React.useContext(StatusContext)
     const [isIngredientModalOpen, toggleIngredientModal] = useToggle()
     const [isInstructionsModalOpen, toggleInstructionsModal] = useToggle(true)
+    const scrollRef = React.useRef<HTMLDivElement>(null);
 
     const {isValid} = useValidation(ip)
 
@@ -33,15 +36,27 @@ export default function App({ip}: AppProps) {
         }
     }, [isValid, setStatus])
 
+    React.useEffect(() => {
+        if (status === "success") {
+            handleScroll()
+        }
+    }, [status])
+
+    function handleScroll() {
+        scrollRef.current?.scrollTo({
+            top: 350,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
 
     return (
         <ParentContainer>
             <Modal title={'Bienvenido a refrichef'} isModalOpen={isInstructionsModalOpen}
                    toggleModal={toggleInstructionsModal}>
-            <Toast >Esta aplicación hace uso de inteligencia artificial para sugerir platillos en base a los ingredientes proporcionados. Debido a esto, los resultados pueden variar y es posible que se sugieran combinaciones de ingredientes inesperadas. Por favor, use su propio criterio al seguir las sugerencias de la aplicación. ¡Diviértete cocinando!</Toast>
 
-
-
+                <br/>
 
                 <p style={{textAlign: "center"}}>Agrega los ingredientes que tengas en casa y te sugeriremos platillos
                     que puedas preparar con ellos:</p>
@@ -55,9 +70,12 @@ export default function App({ip}: AppProps) {
                     </li>
                     <li>Necesitas por lo menos 3 ingredientes para generar las sugerencias</li>
                     <li>Una vez que los tengas listos da click en el boton <strong>Enviar</strong></li>
-                    {/*<li>Espera unos segundos y revisa las sugerencias que refrichef te generará</li>*/}
                 </ol>
                 <br/>
+                <Toast>Esta aplicación hace uso de inteligencia artificial para sugerir platillos en base a los
+                    ingredientes proporcionados. Debido a esto, los resultados pueden variar y es posible que se
+                    sugieran combinaciones de ingredientes inesperadas. Por favor, use su propio criterio al seguir las
+                    sugerencias de la aplicación. ¡Diviértete cocinando!</Toast>
 
 
             </Modal>
@@ -67,51 +85,17 @@ export default function App({ip}: AppProps) {
                     te gustaria adquirir una suscripcion premium <a href='https://twitter.com/DavidGarciaMa1'
                                                                     target="_blank"><Twitter></Twitter></a></Modal>}
             <TopBar toggleInstructionsModal={toggleInstructionsModal}/>
-            <ParentContainer className={styles.heroPlusList}>
+            <ParentContainer className={styles.heroPlusList} ref={scrollRef}>
                 <Hero/>
                 {status !== 'loading' &&
                     <IngredientList/>}
+                {status == 'success' &&
+                    <button className={styles.downButton} onClick={handleScroll}><ArrowDown></ArrowDown></button>}
 
 
-                {/*<section className={styles.section}>*/}
-                {/*    <div className={styles.container}>*/}
-                {/*        <div className={styles.grid}>*/}
-                {/*            <article className={styles.card}>*/}
-                {/*                <img className={styles.card__image} src='food1.jpg'*/}
-                {/*                     alt='Imagen de un platillo de comida'/>*/}
-                {/*                <div className={styles.card__data}>*/}
-                {/*                    <div className={styles.card__info}>*/}
-                {/*                        <h2>Platillo 1</h2>*/}
-                {/*                        <p>Descripcion del platillo 1</p>*/}
-                {/*                    </div>*/}
-                {/*                    /!*<h3 className={styles.card__price}>$7.50</h3>*!/*/}
-                {/*                    /!*<button className={styles.card__add}>+</button>*!/*/}
-                {/*                </div>*/}
-                {/*            </article>*/}
-                {/*            <article className={styles.card}>*/}
-                {/*                <img className={styles.card__image} src='food1.jpg'*/}
-                {/*                     alt='Imagen de un platillo de comida'/>*/}
-                {/*                <div className={styles.card__data}>*/}
-                {/*                    <div className={styles.card__info}>*/}
-                {/*                        <h2>Platillo 1</h2>*/}
-                {/*                        <p>Descripcion del platillo 1</p>*/}
-                {/*                    </div>*/}
-                {/*                </div>*/}
-                {/*            </article>*/}
-                {/*            <article className={styles.card}>*/}
-                {/*                <img className={styles.card__image} src='food1.jpg'*/}
-                {/*                     alt='Imagen de un platillo de comida'/>*/}
-                {/*                <div className={styles.card__data}>*/}
-                {/*                    <div className={styles.card__info}>*/}
-                {/*                        <h2>Platillo 1</h2>*/}
-                {/*                        <p>Descripcion del platillo 1</p>*/}
-                {/*                    </div>*/}
-                {/*                </div>*/}
-                {/*            </article>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</section>*/}
                 {status === 'success' && <Dishes/>}
+
+
             </ParentContainer>
             <ButtonBar toggleModal={toggleIngredientModal} B1={'Reiniciar'} B2={'Enviar'} B3={'Añadir'}/>
 
@@ -123,6 +107,7 @@ export default function App({ip}: AppProps) {
 
 
         </ParentContainer>
+
 
     )
 }
