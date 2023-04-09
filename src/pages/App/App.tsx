@@ -40,12 +40,13 @@ export default function App({ip}: AppProps) {
                 <p style={{textAlign: "center"}}>¿Estás listo para convertirte en un chef de cocina gourmet?</p>
                 <br/>
                 <ol className={styles.orderList}>
-                    <li>Haz click en el boton añadir para añadir un nuevo ingrediente</li>
+                    <li>Haz click en el boton <strong>Añadir</strong> para añadir un nuevo ingrediente</li>
                     <li>Pon una cantidad para dicho ingrediente (1Kg, una pizca, 100gr, una taza, 1 pieza, etc.)</li>
-                    <li>Da click en el boton añadir ingrediente</li>
+                    <li>Escribe el ingrediente</li>
+                    <li>Da click en el boton <strong>Añadir ingrediente</strong></li>
                     <li>Necesitas por lo menos 3 ingredientes para poder empezar</li>
-                    <li>Una vez que los tengas listos da click en el boton "Enviar"</li>
-                    <li>Espera unos segundos y revisa las sugerencias que refrichef te generara</li>
+                    <li>Una vez que los tengas listos da click en el boton <strong>Enviar</strong></li>
+                    <li>Espera unos segundos y revisa las sugerencias que refrichef te generará</li>
                 </ol>
                 <br/>
 
