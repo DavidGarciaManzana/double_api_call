@@ -85,7 +85,7 @@ export default function App({ip}:AppProps) {
 
             {status === 'loading' && <Loader></Loader>}
 
-            <Modal title="Add Ingredient Modal" isModalOpen={isModalOpen} toggleModal={toggleModal}>
+            <Modal title="Nuevo ingrediente" isModalOpen={isModalOpen} toggleModal={toggleModal}>
 
 
                 <IngredientForm toggleModal={toggleModal}></IngredientForm>
