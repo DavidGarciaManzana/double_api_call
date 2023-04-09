@@ -13,6 +13,9 @@ import Dishes from "@/pages/Dishes/Dishes"
 import {StatusContext} from "@/pages/StatusProvider/StatusProvider";
 import useValidation from "@/hooks/useValidation";
 import {Twitter} from "react-feather";
+import * as TooltipTag from '@radix-ui/react-tooltip';
+import Tooltip from '@/pages/Tooltip/Tooltip'
+
 
 interface AppProps {
     ip: string
@@ -36,22 +39,30 @@ export default function App({ip}: AppProps) {
         <ParentContainer>
             <Modal title={'Bienvenido a refrichef'} isModalOpen={isInstructionsModalOpen}
                    toggleModal={toggleInstructionsModal}>
-                <br/>
-                <p style={{textAlign: "center"}}>¿Estás listo para convertirte en un chef de cocina gourmet?</p>
+
+                <TooltipTag.Provider delayDuration={200}>
+                    <Tooltip><strong style={{textAlign: "center", maxWidth: '565px'}}>¡Importante! Esta aplicación hace uso de
+                        inteligencia artificial. Por favor, use su propio criterio al seguir las
+                        sugerencias.</strong></Tooltip>
+                </TooltipTag.Provider>
+
+                <p style={{textAlign: "center"}}>Agrega los ingredientes que tengas en casa y te sugeriremos platillos
+                    que puedas preparar con ellos:</p>
                 <br/>
                 <ol className={styles.orderList}>
-                    <li>Haz click en el boton <strong>Añadir</strong> para añadir un nuevo ingrediente</li>
-                    <li>Pon una cantidad para dicho ingrediente (1Kg, una pizca, 100gr, una taza, 1 pieza, etc.)</li>
-                    <li>Escribe el ingrediente</li>
-                    <li>Da click en el boton <strong>Añadir ingrediente</strong></li>
-                    <li>Necesitas por lo menos 3 ingredientes para poder empezar</li>
+                    <li>Haz click en el boton <strong>Añadir</strong> para agregar un nuevo ingrediente</li>
+                    <li>Escribe la cantidad que deseas agregar del ingrediente (Ejemplo: 1Kg, una pizca, 100gr, una
+                        taza, 1 pieza, etc.)
+                    </li>
+                    <li>Escribe el nombre del ingrediente y haz click en el boton <strong>Añadir ingrediente</strong>
+                    </li>
+                    <li>Necesitas por lo menos 3 ingredientes para generar las sugerencias</li>
                     <li>Una vez que los tengas listos da click en el boton <strong>Enviar</strong></li>
                     <li>Espera unos segundos y revisa las sugerencias que refrichef te generará</li>
                 </ol>
                 <br/>
 
-                <strong style={{textAlign: "center",maxWidth:'565px'}}>¡Importante! Esta aplicación hace uso de inteligencia artificial. Por favor, use su propio criterio al seguir las
-                    sugerencias. ¡Diviértete cocinando!</strong>
+
 
             </Modal>
             {status == 'consumed' &&

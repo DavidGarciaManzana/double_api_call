@@ -31,7 +31,7 @@ export default function Modal({className='',title = 'Modal Title', isModalOpen, 
                 >
                     <Close />
                 </button>
-                <Dialog.Title>{title}</Dialog.Title>
+                <Dialog.Title className={styles.title}>{title}</Dialog.Title>
 
                 {children}
 

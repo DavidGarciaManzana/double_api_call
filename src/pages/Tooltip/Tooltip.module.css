@@ -1,0 +1,38 @@
+.trigger {
+    position: relative;
+    display: inline-block;
+    color: #ED4F32;
+    font-weight: bold;
+    border: none;
+    background: transparent;
+    padding: 0px 2px;
+}
+@media only screen and (max-width: 700px) {
+    .content {
+        width: 300px;
+    }
+}
+.content {
+    padding: 12px 18px;
+    border-radius: 6px;
+    background-color: #ED4F32;
+    color: white;
+    font-size: 0.875rem;
+    text-align: center;
+    filter: drop-shadow(0px 4px 8px hsl(245deg 100% 40% / 0.2));
+}
+
+.content svg {
+    display: block;
+    transform: scale(1.1);
+    fill: #ED4F32;
+}
+/*
+  Increase the size of the trigger target,
+  to make it easier to trigger the tooltip.
+*/
+.trigger::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+}
