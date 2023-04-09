@@ -23,6 +23,7 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem;
+
 }
 
 .closeBtn {
@@ -36,3 +37,4 @@
     background: transparent;
     border: none
 }
+

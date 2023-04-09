@@ -23,7 +23,7 @@ export default function Hero() {
     }
     return (
         <div className={styles.hero}>
-            <Image className={styles.world} src={fridge} alt="An image of the world been cooked"/>
+            <img className={styles.world} src={fridge} alt="An image of the world been cooked"/>
         </div>
     );
 }

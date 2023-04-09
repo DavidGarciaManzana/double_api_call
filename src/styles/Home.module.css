@@ -320,3 +320,22 @@ button.noMore {
     display: none;
 }
 
+
+
+
+.orderList {
+    list-style: none;
+    counter-reset: cupcake;
+    /*padding-left: 32px;*/
+}
+.orderList li {
+    counter-increment: cupcake;
+}
+.orderList li:before {
+    content: counters(cupcake, '.') ' ';
+    /* Whatever custom styles you want here */
+    color: hotpink;
+    font-weight: bold;
+    font-family: cursive;
+}
+

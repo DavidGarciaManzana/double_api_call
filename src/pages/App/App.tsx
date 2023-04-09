@@ -13,27 +13,55 @@ import Dishes from "@/pages/Dishes/Dishes"
 import {StatusContext} from "@/pages/StatusProvider/StatusProvider";
 import useValidation from "@/hooks/useValidation";
 import {Twitter} from "react-feather";
+
 interface AppProps {
-    ip:string
+    ip: string
 }
-export default function App({ip}:AppProps) {
-    const {status,setStatus} = React.useContext(StatusContext)
-    const [isModalOpen, toggleModal] = useToggle()
+
+export default function App({ip}: AppProps) {
+    const {status, setStatus} = React.useContext(StatusContext)
+    const [isIngredientModalOpen, toggleIngredientModal] = useToggle()
+    const [isInstructionsModalOpen, toggleInstructionsModal] = useToggle(true)
 
     const {isValid} = useValidation(ip)
 
-    React.useEffect(()=>{
-        if(!isValid()){
+    React.useEffect(() => {
+        if (!isValid()) {
             setStatus('consumed')
         }
-    },[isValid,setStatus])
-
-
+    }, [isValid, setStatus])
 
 
     return (
         <ParentContainer>
-            {status == 'consumed' && <Modal className={styles.noMore} title={'😔'} isModalOpen={true} toggleModal={()=>{}}>Por el momento solo se permiten 3 intentos por dia, ponte en contacto con el equipo de desarrollo si te gustaria adquirir una suscripcion premium <a href='https://twitter.com/DavidGarciaMa1' target="_blank"><Twitter></Twitter></a></Modal>}
+            <Modal title={'Bienvenido a refrichef'} isModalOpen={isInstructionsModalOpen}
+                   toggleModal={toggleInstructionsModal}>
+                <br/>
+                <p style={{textAlign: "center"}}>¿Estás listo para convertirte en un chef de cocina gourmet?</p>
+                <br/>
+                <ol className={styles.orderList}>
+                    <li>Haz click en el boton añadir para añadir un nuevo ingrediente</li>
+                    <li>Pon una cantidad para dicho ingrediente (1Kg, una pizca, 100gr, una taza, 1 pieza, etc.)</li>
+                    <li>Da click en el boton añadir ingrediente</li>
+                    <li>Necesitas por lo menos 3 ingredientes para poder empezar</li>
+                    <li>Una vez que los tengas listos da click en el boton "Enviar"</li>
+                    <li>Espera unos segundos y revisa las sugerencias que refrichef te generara</li>
+                </ol>
+                <br/>
+
+                <strong style={{textAlign: "center",maxWidth:'565px'}}>¡Importante! Esta aplicación hace uso de inteligencia artificial para sugerir platillos en base a los
+                    ingredientes proporcionados. Debido a esto, los resultados pueden variar y es posible que se
+                    sugieran
+                    combinaciones de ingredientes inesperadas. Por favor, use su propio criterio al seguir las
+                    sugerencias
+                    de la aplicación. ¡Diviértete cocinando!</strong>
+
+            </Modal>
+            {status == 'consumed' &&
+                <Modal className={styles.noMore} title={'😔'} isModalOpen={true} toggleModal={() => {
+                }}>Por el momento solo se permiten 3 intentos por dia, ponte en contacto con el equipo de desarrollo si
+                    te gustaria adquirir una suscripcion premium <a href='https://twitter.com/DavidGarciaMa1'
+                                                                    target="_blank"><Twitter></Twitter></a></Modal>}
             <TopBar/>
             <ParentContainer className={styles.heroPlusList}>
                 <Hero/>
@@ -81,16 +109,12 @@ export default function App({ip}:AppProps) {
                 {/*</section>*/}
                 {status === 'success' && <Dishes/>}
             </ParentContainer>
-            <ButtonBar toggleModal={toggleModal} B1={'Reiniciar'} B2={'Enviar'} B3={'Añadir'}/>
+            <ButtonBar toggleModal={toggleIngredientModal} B1={'Reiniciar'} B2={'Enviar'} B3={'Añadir'}/>
 
             {status === 'loading' && <Loader></Loader>}
 
-            <Modal title="Nuevo ingrediente" isModalOpen={isModalOpen} toggleModal={toggleModal}>
-
-
-                <IngredientForm toggleModal={toggleModal}></IngredientForm>
-
-
+            <Modal title="Nuevo ingrediente" isModalOpen={isIngredientModalOpen} toggleModal={toggleIngredientModal}>
+                <IngredientForm toggleModal={toggleIngredientModal}></IngredientForm>
             </Modal>
 
 
