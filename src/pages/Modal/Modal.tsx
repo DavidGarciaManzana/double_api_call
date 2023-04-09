@@ -4,17 +4,17 @@ import {X as Close} from 'react-feather';
 import {Dialog} from '@headlessui/react'
 
 interface ModalProps {
+    className? :string;
     title: string;
     isModalOpen: boolean;
     toggleModal: Function;
     children: React.ReactNode;
 }
 
-export default function Modal({title = 'Modal Title', isModalOpen, toggleModal, children}: ModalProps) {
-    // console.log(isModalOpen)
+export default function Modal({className='',title = 'Modal Title', isModalOpen, toggleModal, children}: ModalProps) {
 
     return (
-        <Dialog className={styles.wrapper} open={isModalOpen} onClose={()=>{toggleModal()}}>
+        <Dialog className={`${styles.wrapper} ${className}`} open={isModalOpen} onClose={()=>{toggleModal()}}>
             <div
                 className={styles.backdrop}
                 onClick={() => {
@@ -24,12 +24,12 @@ export default function Modal({title = 'Modal Title', isModalOpen, toggleModal, 
             <Dialog.Panel className={styles.dialog}>
                 <button
 
-                    className={styles.closeBtn}
+                    className={`${styles.closeBtn} ${className}`}
                     onClick={() => {
                         toggleModal()
                     }}
                 >
-                    <Close/>
+                    <Close />
                 </button>
                 <Dialog.Title>{title}</Dialog.Title>
 

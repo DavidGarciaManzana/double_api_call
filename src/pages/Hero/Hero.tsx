@@ -7,7 +7,7 @@ import {IngredientsContext} from "@/pages/IngredientsProvider/IngredientsProvide
 
 export default function Hero() {
     const {foodIngredients} = React.useContext(IngredientsContext)
-    console.log('RENDERIZA HERO')
+
     let fridge = 'FRIDGE1.png' ;
     if (foodIngredients.length>2){
         fridge = 'FRIDGE2.png'

@@ -9,7 +9,6 @@ interface IngredientFormProps {
 }
 
 export default function IngredientForm({toggleModal}: IngredientFormProps) {
-    // console.log(isModalOpen)
     const [ingredientQuantity, setIngredientQuantity] = React.useState<string>('')
     const [ingredientName, setIngredientName] = React.useState<string>('')
 

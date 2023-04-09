@@ -17,9 +17,10 @@ interface ButtonBarProps {
 export default function ButtonBar({B1, B2, B3,toggleModal}:ButtonBarProps) {
 
     const {status} = React.useContext(StatusContext)
+
     const {foodIngredients,hardReset} = React.useContext(IngredientsContext)
     const {handleTextAPI} = React.useContext(APIContext)
-    let buttonActive: boolean = foodIngredients.length > 2 && status === 'idle'
+    let buttonActive: boolean = foodIngredients.length > 2 && (status === 'idle' || status ==='success')
     return (
         <div className={styles.wrapper}>
             <Button className={styles.barNormalButton} onClick={hardReset}>{B1}</Button>
