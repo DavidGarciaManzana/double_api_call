@@ -13,8 +13,8 @@ import Dishes from "@/pages/Dishes/Dishes"
 import {StatusContext} from "@/pages/StatusProvider/StatusProvider";
 import useValidation from "@/hooks/useValidation";
 import {Twitter} from "react-feather";
-import * as TooltipTag from '@radix-ui/react-tooltip';
-import Tooltip from '@/pages/Tooltip/Tooltip'
+import * as Tooltip from '@radix-ui/react-tooltip';
+import TooltipAlert from '@/pages/TooltipAlert/TooltipAlert'
 
 
 interface AppProps {
@@ -40,11 +40,11 @@ export default function App({ip}: AppProps) {
             <Modal title={'Bienvenido a refrichef'} isModalOpen={isInstructionsModalOpen}
                    toggleModal={toggleInstructionsModal}>
 
-                <TooltipTag.Provider delayDuration={200}>
-                    <Tooltip><strong style={{textAlign: "center", maxWidth: '565px'}}>¡Importante! Esta aplicación hace uso de
+
+                    <TooltipAlert><strong style={{textAlign: "center", maxWidth: '565px'}}>¡Importante! Esta aplicación hace uso de
                         inteligencia artificial. Por favor, use su propio criterio al seguir las
-                        sugerencias.</strong></Tooltip>
-                </TooltipTag.Provider>
+                        sugerencias.</strong></TooltipAlert>
+
 
                 <p style={{textAlign: "center"}}>Agrega los ingredientes que tengas en casa y te sugeriremos platillos
                     que puedas preparar con ellos:</p>
