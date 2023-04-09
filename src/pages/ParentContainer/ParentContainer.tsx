@@ -9,7 +9,7 @@ interface ParentContainerProps  {
 
 export default function ParentContainer({className = '',children} : ParentContainerProps) {
     return (
-        <div className={`${styles.parent} ${className}`}>
+        <div className={className ? className: styles.parent}>
             {children}
         </div>
     );
