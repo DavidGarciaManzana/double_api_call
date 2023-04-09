@@ -50,12 +50,8 @@ export default function App({ip}: AppProps) {
                 </ol>
                 <br/>
 
-                <strong style={{textAlign: "center",maxWidth:'565px'}}>¡Importante! Esta aplicación hace uso de inteligencia artificial para sugerir platillos en base a los
-                    ingredientes proporcionados. Debido a esto, los resultados pueden variar y es posible que se
-                    sugieran
-                    combinaciones de ingredientes inesperadas. Por favor, use su propio criterio al seguir las
-                    sugerencias
-                    de la aplicación. ¡Diviértete cocinando!</strong>
+                <strong style={{textAlign: "center",maxWidth:'565px'}}>¡Importante! Esta aplicación hace uso de inteligencia artificial. Por favor, use su propio criterio al seguir las
+                    sugerencias. ¡Diviértete cocinando!</strong>
 
             </Modal>
             {status == 'consumed' &&
