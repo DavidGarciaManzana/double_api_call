@@ -303,7 +303,7 @@
     background: linear-gradient(0deg, rgba(222, 212, 184, 1) 0%, rgba(245, 237, 208, 1) 35%, rgba(244, 236, 208, 1) 100%);
     width: 100%;
     /*height: 100%;*/
-    flex: 1; /* Take up remaining space */
+    flex: 1 1 auto;/* Take up remaining space */
     overflow-y: scroll; /* Add vertical scrollbar if needed */
 }
 
