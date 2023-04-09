@@ -14,7 +14,7 @@ interface ModalProps {
 export default function Modal({className='',title = 'Modal Title', isModalOpen, toggleModal, children}: ModalProps) {
 
     return (
-        <Dialog className={`${styles.wrapper} ${className}`} open={isModalOpen} onClose={()=>{toggleModal()}}>
+        <Dialog className={`${styles.wrapper} ${className}`} open={isModalOpen??false} onClose={()=>{toggleModal()}}>
             <div
                 className={styles.backdrop}
                 onClick={() => {

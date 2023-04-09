@@ -26,7 +26,7 @@ export default function App({ip}:AppProps) {
         if(!isValid()){
             setStatus('consumed')
         }
-    },[])
+    },[isValid,setStatus])
 
 
 

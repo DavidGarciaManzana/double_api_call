@@ -10,7 +10,7 @@ export default function IngredientList() {
     return (
         <div className={styles.listContainer}>
             <ul className={styles.list}>
-                {foodIngredients.map((ingr: IngredientInterface) => (
+                {foodIngredients?.map((ingr: IngredientInterface) => (
                     <li className={styles.listItem} key={ingr.id}>{ingr.quantity} {ingr.text} <X
                         className={styles.closeButton} onClick={() => {
                         removeItem(ingr.id)
