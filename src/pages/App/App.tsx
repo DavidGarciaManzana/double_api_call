@@ -81,7 +81,7 @@ export default function App({ip}:AppProps) {
                 {/*</section>*/}
                 {status === 'success' && <Dishes/>}
             </ParentContainer>
-            <ButtonBar toggleModal={toggleModal} B1={'Reset'} B2={'Enviar'} B3={'Añadir'}/>
+            <ButtonBar toggleModal={toggleModal} B1={'Reiniciar'} B2={'Enviar'} B3={'Añadir'}/>
 
             {status === 'loading' && <Loader></Loader>}
 
