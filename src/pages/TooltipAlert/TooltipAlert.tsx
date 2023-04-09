@@ -5,16 +5,25 @@ import {AlertTriangle} from 'react-feather';
 import styles from '@/pages/TooltipAlert/TooltipAlert.module.css'
 
 function TooltipAlert({children}: { children: ReactNode }) {
+    const buttonRef = React.useRef(null);
+    const handleButtonClick = () => {
+        // buttonRef.current.focus();
+        // console.log(buttonRef)
+    };
     return (
-        <Tooltip.Provider delayDuration={200}>
+        <Tooltip.Provider>
             <Tooltip.Root>
                 <Tooltip.Trigger className={styles.trigger}>
-                    <AlertTriangle></AlertTriangle>
+                    <button ref={buttonRef} onClick={handleButtonClick} className={styles.IconButton}>
+                        <AlertTriangle />
+                    </button>
                 </Tooltip.Trigger>
-                <Tooltip.Content className={styles.content}>
-                    <Tooltip.Arrow/>
-                    {children}
-                </Tooltip.Content>
+                <Tooltip.Portal>
+                    <Tooltip.Content className={styles.TooltipContent} sideOffset={5}>
+                        {children}
+                        <Tooltip.Arrow className={styles.TooltipArrow} />
+                    </Tooltip.Content>
+                </Tooltip.Portal>
             </Tooltip.Root>
         </Tooltip.Provider>
     );

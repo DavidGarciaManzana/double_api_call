@@ -4,10 +4,10 @@ import Button from "@/pages/Button/Button";
 import {Smile, Twitter} from "react-feather";
 
 
-export default function TopBar() {
+export default function TopBar({toggleInstructionsModal}:any) { //todo remove any
     return (
         <div className={styles.topBar}>
-        <Button className={styles.hamburgerButton}>
+        <Button className={styles.hamburgerButton} onClick={toggleInstructionsModal}>
             <Smile></Smile>
         </Button>
             <h1>RefriChef</h1>

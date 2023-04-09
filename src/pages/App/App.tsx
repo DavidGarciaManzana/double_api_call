@@ -41,9 +41,11 @@ export default function App({ip}: AppProps) {
                    toggleModal={toggleInstructionsModal}>
 
 
-                    <TooltipAlert><strong style={{textAlign: "center", maxWidth: '565px'}}>¡Importante! Esta aplicación hace uso de
-                        inteligencia artificial. Por favor, use su propio criterio al seguir las
-                        sugerencias.</strong></TooltipAlert>
+                {/*<TooltipAlert>*/}
+                {/*    <strong style={{textAlign: "center", maxWidth: '565px'}}>¡Importante! Esta aplicación hace uso de*/}
+                {/*        inteligencia artificial. Por favor, use su propio criterio al seguir las*/}
+                {/*        sugerencias.</strong>*/}
+                {/*</TooltipAlert>*/}
 
 
                 <p style={{textAlign: "center"}}>Agrega los ingredientes que tengas en casa y te sugeriremos platillos
@@ -58,10 +60,9 @@ export default function App({ip}: AppProps) {
                     </li>
                     <li>Necesitas por lo menos 3 ingredientes para generar las sugerencias</li>
                     <li>Una vez que los tengas listos da click en el boton <strong>Enviar</strong></li>
-                    <li>Espera unos segundos y revisa las sugerencias que refrichef te generará</li>
+                    {/*<li>Espera unos segundos y revisa las sugerencias que refrichef te generará</li>*/}
                 </ol>
                 <br/>
-
 
 
             </Modal>
@@ -70,7 +71,7 @@ export default function App({ip}: AppProps) {
                 }}>Por el momento solo se permiten 3 intentos por dia, ponte en contacto con el equipo de desarrollo si
                     te gustaria adquirir una suscripcion premium <a href='https://twitter.com/DavidGarciaMa1'
                                                                     target="_blank"><Twitter></Twitter></a></Modal>}
-            <TopBar/>
+            <TopBar toggleInstructionsModal={toggleInstructionsModal}/>
             <ParentContainer className={styles.heroPlusList}>
                 <Hero/>
                 {status !== 'loading' &&
