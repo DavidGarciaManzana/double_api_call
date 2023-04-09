@@ -2,10 +2,13 @@
 .buttonLarge {
 
     all: unset;
-    border: 1px solid black;
+    border: 1px solid #B5AA39;
     border-radius: 50%;
     padding: 5px;
+    width: 32px;
     color: #EDE04D;
+    height: 32px;
+    text-align: center;
 }
 
 
@@ -118,7 +121,7 @@
 
 .Button {
     color: #ED4F32;
-/*border: 1px solid red;*/
+    /*border: 1px solid red;*/
     display: inline-flex;
     align-items: center;
     justify-content: center;
