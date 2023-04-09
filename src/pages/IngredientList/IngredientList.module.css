@@ -2,27 +2,14 @@
     font-family: 'Gloria Hallelujah', cursive;
     /*font-size: 1rem;*/
     /*margin: 0;*/
-    padding: 1rem;
+    padding: 0 1rem 1rem;
     display: grid;
     /*place-items: center;*/
     /*height: 50%;*/
     /*margin-top: 100px;*/
+    height: 60svh;
 }
-@media only screen and (min-width: 350px) {
-    .listContainer {
-        margin-top: 50px;
-    }
-}
-@media only screen and (min-width: 390px) {
-    .listContainer {
-        margin-top: 80px;
-    }
-}
-@media only screen and (min-width: 425px) {
-    .listContainer {
-        margin-top: 25px;
-    }
-}
+
 
 .list {
     list-style-position: inside;
