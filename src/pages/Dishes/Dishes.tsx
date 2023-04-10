@@ -12,7 +12,7 @@ export default function Hero() {
                 <div className={styles.container}>
                     <div className={styles.grid}>
                         <article className={styles.card}>
-                            <img className={styles.card__image} src={imageApiAnswer[0] ?? ''}
+                            <Image className={styles.card__image} src={imageApiAnswer[0] ?? ''}
                                    alt='Imagen de un platillo de comida'/>
                             <div className={styles.card__data}>
                                 <div className={styles.card__info}>
@@ -22,7 +22,7 @@ export default function Hero() {
                             </div>
                         </article>
                         <article className={styles.card}>
-                            <img className={styles.card__image} src={imageApiAnswer[1] ?? ''}
+                            <Image className={styles.card__image} src={imageApiAnswer[1] ?? ''}
                                    alt='Imagen de un platillo de comida'/>
                             <div className={styles.card__data}>
                                 <div className={styles.card__info}>
@@ -32,7 +32,7 @@ export default function Hero() {
                             </div>
                         </article>
                         <article className={styles.card}>
-                            <img className={styles.card__image} src={imageApiAnswer[2] ?? ''}
+                            <Image className={styles.card__image} src={imageApiAnswer[2] ?? ''}
                                    alt='Imagen de un platillo de comida'/>
                             <div className={styles.card__data}>
                                 <div className={styles.card__info}>

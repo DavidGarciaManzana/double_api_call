@@ -1,16 +1,15 @@
 import '@/styles/globals.css'
 import type {AppProps} from 'next/app'
-import {NextPageContext} from "next";
-
-
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App({Component, pageProps}: AppProps) { //,actualIp
 
 
-    return <Component {...pageProps} />
+    return (
+        <>
+            <Component {...pageProps} />
+            <Analytics />
+        </>
+    );
 }
-
-// App.getInitialProps = async({ctx})=>{
-//     return {actualIp:ctx.req.connection.remoteAddress}
-// }
 
