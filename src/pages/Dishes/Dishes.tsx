@@ -19,7 +19,7 @@ export default function Hero() {
                                     <h2>{textApiAnswer[0]?.substring(textApiAnswer[0]?.indexOf(' ') + 1, textApiAnswer[0]?.indexOf(':'))}</h2>
                                     <p>{textApiAnswer[0]?.substring(textApiAnswer[0]?.indexOf(':') + 1)}</p>
                                 </div>
-                            </div>
+                            </div>adfadsf
                         </article>
                         <article className={styles.card}>
                             <img className={styles.card__image} src={imageApiAnswer[1] ?? ''}
