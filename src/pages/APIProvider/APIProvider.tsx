@@ -75,10 +75,6 @@ function APIProvider({ip, children}: APIProviderProps) {
         if (!checkTries()) {
             return;
         }
-
-
-
-
         setStatus('loading');
 
 
