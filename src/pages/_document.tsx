@@ -1,22 +1,28 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import Script from 'next/script';
 
 
 
 export default function Document() {
-  const variableGAn =`window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag(\"js\", new Date());
-
-  gtag(\"config\", \"${process.env.NEXT_PUBLIC_GA_KEY}\");`
   
   return (
+  
     <Html lang="en">
       <Head />
 
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_KEY}`}></script>
-      <script>
-        {variableGAn}
-      </script>
+
+      <Script strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_KEY}`} />
+
+      <Script strategy="lazyOnload">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GA_KEY}', {
+          page_path: window.location.pathname,
+          });
+        `}
+      </Script>
       <body>
         <Main/>
         <NextScript />
