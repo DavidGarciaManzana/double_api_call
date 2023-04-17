@@ -3,7 +3,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 
 export default function Document() {
-  const variableGA =`window.dataLayer = window.dataLayer || [];
+  const variableGAn =`window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
@@ -15,7 +15,7 @@ export default function Document() {
 
 <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_KEY}`}></script>
 <script>
-{variableGA}
+{variableGAn}
 </script>
       <body>
         <Main/>
